@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golf Card Game - 9 Holes of Fun</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <main id="game-board">
+            <div class="log-area">
+                <textarea id="log-textarea" rows="10" cols="50"></textarea>
+            </div>
+
+            <!-- Human Player (Player 1) -->
+            <div class="player-area human" id="player-1">
+                <div class="card-grid"></div>
+            </div>
+
+            <!-- AI Player Top (Player 2) -->
+            <div class="player-area opponent top" id="player-3">
+                <div class="card-grid"></div>
+            </div>
+
+            <!-- AI Player Left (Player 3) -->
+            <div class="player-area opponent left" id="player-2">
+                <div class="card-grid"></div>
+            </div>
+
+            <!-- AI Player Right (Player 4) -->
+            <div class="player-area opponent right" id="player-4">
+                <div class="card-grid"></div>
+            </div>
+
+            <!-- Central Piles -->
+            <div id="center-piles">
+                <div class="pile-container">
+                    <div id="draw-pile" class="card-back"></div>
+                    <label>Draw</label>
+                </div>
+                <div class="pile-container">
+                    <div id="discard-pile"></div>
+                    <label>Discard</label>
+                </div>
+            </div>
+
+            <!-- Held Card Display -->
+            <div id="held-card-area">
+                <div id="held-card-container"></div>
+            </div>
+
+            <!-- Last Discarded Card Display -->
+            <div id="last-discard-area">
+                <div id="last-discard-container"></div>
+            </div>
+
+            <div id="game-stats">
+                <span>Hole: <span id="current-hole">1</span>/9</span>
+                <button id="help-btn" style="padding: 5px 10px; font-size: 0.8rem; margin-left: 10px;">Help</button>
+            </div>
+
+
+            <!-- Human Player (Player 1) -->
+            <div class="player-area human" id="player-1">
+                <div class="card-grid"></div>
+            </div>
+        </main>
+
+        <div id="message-overlay" class="hidden">
+            <div class="message-content">
+                <h2 id="overlay-title">Game Over</h2>
+                <p id="overlay-text">Final Scores...</p>
+                <button id="next-round-btn">Next Hole</button>
+            </div>
+        </div>
+
+        <div id="help-modal" class="hidden">
+            <div class="message-content" style="max-height: 80vh; overflow-y: auto;">
+                <button id="close-help-btn">Close</button>
+                <br><br>
+                <h2>How to Play Golf</h2>
+                <div style="text-align: left; font-size: 0.95rem;">
+                    <br>
+                    <hr><br>
+                    <p>
+                        <strong>
+                            <center>GOAL</center>
+                        </strong>
+                    </p>
+                    <p>
+                        The goal is to have the lowest score after 9 holes.
+                    </p>
+                    <br>
+                    <hr><br>
+                    <p>
+                        <center><strong>SCORING</strong></center>
+                    </p>
+                    <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                        <thead>
+                            <tr style="background: rgba(241, 196, 15, 0.2);">
+                                <th style="padding: 8px; text-align: left; border: 1px solid rgba(255,255,255,0.2);">
+                                    Card</th>
+                                <th style="padding: 8px; text-align: left; border: 1px solid rgba(255,255,255,0.2);">
+                                    Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Number cards (3-10)
+                                </td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Face value</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Aces</td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">1 point</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">2s</td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">-2 points</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Kings</td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">0 points</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Queens/Jacks</td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">10 points</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">Matching
+                                    Pairs<br>(Same rank in column)</td>
+                                <td style="padding: 8px; border: 1px solid rgba(255,255,255,0.1);">0
+                                    points<br>(Values not added)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr><br><br>
+                    <p>
+                        <center><strong>GAMEPLAY</strong></center>
+                    </p>
+                    <p>
+                        At the begging of the game, click on two cards to flip over.
+                    </p>
+                    <p>
+                        On your turn, draw from the deck
+                        or discard pile by clicking on the
+                        pile. Swap the drawn card
+                        with one of your 6 cards or discard
+                        it if it came from the deck by clicking
+                        on the discard pile or the card to replace.
+                    </p>
+                    <p>When one player flips all their cards, everyone else
+                        gets one last turn.</p>
+                    <br>
+                    <hr><br>
+                    <p>
+                        Copyright © 2025 Sean Lane Fuller
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
